@@ -80,9 +80,8 @@
   },
   "workspaces": [
     "apps/*"
-  ]
-
-  ,"engines": {
+  ],
+  "engines": {
     "node": ">=20"
   }
 }
