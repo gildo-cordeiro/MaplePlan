@@ -6,5 +6,20 @@
     "implicitDependencies": [
       "@maple-plan/web"
     ]
+    ,
+    "targets": {
+      "e2e": {
+        "executor": "@nx/cypress:cypress",
+        "options": {
+          "cypressConfig": "apps/web-e2e/cypress.config.ts",
+          "testingType": "e2e"
+        },
+        "configurations": {
+          "ci": {
+            "headless": true
+          }
+        }
+      }
+    }
   }
 }
