@@ -10,24 +10,34 @@
 
   ,"nx": {
     "targets": {
-      "serve": {
-        "executor": "nx:run-commands",
+      "build": {
+        "executor": "@nx/next:build",
         "options": {
-          "command": "next dev",
-          "cwd": "apps/web"
+          "outputPath": "dist/apps/web"
+        },
+        "configurations": {
+          "production": {}
+        }
+      },
+      "serve": {
+        "executor": "@nx/next:server",
+        "options": {
+          "buildTarget": "@maple-plan/web:build",
+          "dev": true,
+          "port": 3000
         },
         "configurations": {
           "production": {
-            "command": "next start",
-            "cwd": "apps/web"
+            "dev": false
           }
         }
       },
       "start": {
-        "executor": "nx:run-commands",
+        "executor": "@nx/next:server",
         "options": {
-          "command": "next start",
-          "cwd": "apps/web"
+          "buildTarget": "@maple-plan/web:build",
+          "dev": false,
+          "port": 3000
         }
       }
     }
