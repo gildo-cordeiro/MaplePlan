@@ -6,7 +6,19 @@ afterAll(() => {
     console.log('\n=== ACTIVE HANDLES (start) ===');
     handles.forEach((h: any, i: number) => {
       try {
-        console.log(i, h && h.constructor && h.constructor.name, h);
+        const name = h && h.constructor && h.constructor.name;
+        console.log(i, name);
+        // Try to gracefully close common handle types
+        if (name === 'ChildProcess' && h && typeof h.kill === 'function') {
+          try { h.kill(); } catch (e) { /* ignore */ }
+        }
+        if (name === 'Socket' && h && typeof h.destroy === 'function') {
+          try { h.destroy(); } catch (e) { /* ignore */ }
+        }
+        if (name === 'Server' && h && typeof h.close === 'function') {
+          try { h.close(); } catch (e) { /* ignore */ }
+        }
+        console.log(i, h);
       } catch (err) {
         console.log(i, '<error printing handle>');
       }
