@@ -1,139 +1,74 @@
 # MaplePlan
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+> Monorepo gerenciado com Nx contendo o frontend (Next.js) e o backend (NestJS) do projeto MaplePlan.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+Este repositório usa workspaces (packages gerenciadas pela raiz). Use os READMEs por aplicativo para detalhes específicos:
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/next?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- `apps/api` — backend (NestJS)
+- `apps/web` — frontend (Next.js)
 
-## Finish your CI setup
+## Requisitos
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/ExWiPqNlli)
+- Node.js 20+ (recomendado). Verifique `.nvmrc` na raiz se usar nvm.
+- npm (ou pnpm/yarn) para instalar dependências.
 
+## Como começar (desenvolvimento)
 
-## Run tasks
+1. Instale dependências na raiz (workspaces):
 
-To run the dev server for your app, use:
-
-```sh
-npx nx dev MaplePlan
+```powershell
+npm install
 ```
 
-To create a production bundle:
+2. Execute os apps individualmente durante o desenvolvimento:
 
-```sh
-npx nx build MaplePlan
+- Frontend (Next.js):
+
+```powershell
+npx nx dev web
 ```
 
-To see all available targets to run for a project, run:
+- Backend (NestJS):
 
-````markdown
-# MaplePlan
-
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
-
-This repository is a monorepo managed with Nx containing the MaplePlan backend and frontend applications plus their respective end-to-end test projects.
-
-Workspace summary
-
-- apps/api — NestJS backend (source: `apps/api`)  
-- apps/web — Next.js frontend (app router) (source: `apps/web`)  
--- apps/api-e2e — (removed)
--- apps/web-e2e — (removed)
-
-Use the per-app README files for details: `apps/api/README.md`, `apps/web/README.md`.
-
-Node / environment
-
-- Node version recommended: see `.nvmrc` (Node 20+).  
-- Use `nvm use` (or your environment manager) before running workspace scripts.
-
-Common commands
-
-- Run the development frontend: `npx nx dev web`  
-- Run the backend dev server: `npx nx serve api`  
-- Run all unit tests: `npx nx run-many --target=test --all`  
--- Run all e2e: (removed)
-
-If you want to inspect available project names and targets, run `npx nx show projects` and `npx nx show project <projectName>`.
-
----
-
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/next?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
-
-## Finish your CI setup
-
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/ExWiPqNlli)
-
-
-## Run tasks
-
-To run the dev server for your app, use:
-
-```sh
-npx nx dev MaplePlan
+```powershell
+npx nx serve api
 ```
 
-To create a production bundle:
+3. Padrão de portas (padrão do projeto):
 
-```sh
-npx nx build MaplePlan
-```
+- Web: http://localhost:3000
+- API: http://localhost:3333 (ou conforme configurado na app)
 
-To see all available targets to run for a project, run:
+Verifique os targets do Nx se as portas forem diferentes.
 
-```sh
-npx nx show project MaplePlan
-```
+## Comandos úteis
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+- Ver grafo de dependências: `npx nx graph`
+- Construir projeto: `npx nx build <project>` (ex.: `npx nx build web`)
+- Executar testes: `npx nx test <project>` ou `npx nx run-many --target=test --all`
+- Lint: `npx nx lint <project>`
+- Mostrar projetos e targets: `npx nx show projects` / `npx nx show project <projectName>`
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Estrutura resumida
 
-## Add new projects
+- apps/
+  - api/ (backend NestJS)
+  - web/ (frontend Next.js)
+- package.json, nx.json, tsconfig.base.json, etc.
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+## Boas práticas para contribuição
 
-Use the plugin's generator to create new projects.
+1. Abra uma issue antes de começar mudanças significativas.
+2. Crie um branch com prefixo `feature/` ou `fix/`.
+3. Inclua testes quando relevante e descreva as mudanças no PR.
 
-To generate a new application, use:
+## Troubleshooting rápido
 
-```sh
-npx nx g @nx/next:app demo
-```
+- Se houver problemas com a versão do Node: use `nvm use` ou instale a versão indicada em `.nvmrc`.
+- Remover `node_modules` e `package-lock.json` e rodar `npm install` pode resolver conflitos de dependência.
+- Para problemas com cache do Nx: `npx nx reset`
 
-To generate a new library, use:
+## Links úteis
 
-```sh
-npx nx g @nx/react:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/next?utm_source=nx_project&amp;utm_medium=readme&utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-````
+- Nx docs: https://nx.dev
+- Nx Console (VSCode): https://nx.dev/getting-started/editor-setup
