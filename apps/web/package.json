@@ -13,18 +13,21 @@
       "serve": {
         "executor": "nx:run-commands",
         "options": {
-          "command": "next dev"
+          "command": "next dev",
+          "cwd": "apps/web"
         },
         "configurations": {
           "production": {
-            "command": "next start"
+            "command": "next start",
+            "cwd": "apps/web"
           }
         }
       },
       "start": {
         "executor": "nx:run-commands",
         "options": {
-          "command": "next start"
+          "command": "next start",
+          "cwd": "apps/web"
         }
       }
     }
