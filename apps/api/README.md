@@ -1,23 +1,45 @@
 # MaplePlan — API (backend)
 
-This is the backend NestJS application for the MaplePlan monorepo.
+Aplicação backend construída com NestJS. Este README contém comandos rápidos para desenvolvimento, testes e build.
 
-Quick commands
+## Requisitos
 
-- Start in dev (with nodemon / watch via Nx):
-  - npx nx serve api
+- Node.js 20+ (recomendado) — ver `.nvmrc` na raiz.
 
-- Run unit tests:
-  - npx nx test api
+## Como rodar em desenvolvimento
 
-/* API e2e tests removed from this workspace. */
+```powershell
+# Instale dependências na raiz (workspaces)
+npm install
 
-- Build for production:
-  - npx nx build api
+# Inicie apenas a API em modo dev (watch via Nx)
+npx nx serve api
+```
 
-Notes
+A API geralmente roda em `http://localhost:3333` (verifique a configuração da app caso tenha sido alterada).
 
-- Project is located at `apps/api`.
-- The project uses NestJS + Webpack for the local build; assets live under `apps/api/src/assets` (there is a .gitkeep).
-- Node version: see `.nvmrc` at repository root.
-- If you see multiple Jest configs (TS + CJS), prefer the `.cjs` one for CI; the repo standard uses CommonJS configs for CI compatibility.
+## Testes
+
+- Unit tests (Jest):
+
+```powershell
+npx nx test api
+```
+
+## Build (produção)
+
+```powershell
+npx nx build api
+```
+
+## Observações
+
+- Código-fonte: `apps/api/src`
+- Assets estáticos (se houver): `apps/api/src/assets`
+- Se houver configuração de variáveis de ambiente, confira arquivos `.env` ou a documentação do projeto para valores esperados.
+
+## Resolução de problemas comuns
+
+- Erro de versão Node: verifique e use a versão do `.nvmrc`.
+- Problemas com dependências: remova `node_modules` e `package-lock.json`, rode `npm install` novamente.
+- Em caso de problemas com Jest ou ambientes, verifique os arquivos de configuração em `jest.config.ts`/`.cjs` conforme o caso.
