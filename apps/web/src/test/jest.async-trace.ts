@@ -4,7 +4,6 @@
 
 import async_hooks from 'node:async_hooks';
 import fs from 'node:fs';
-import path from 'node:path';
 
 const OUT = (msg: string) => {
   try {
