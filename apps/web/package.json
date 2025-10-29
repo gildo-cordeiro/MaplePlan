@@ -1,5 +1,5 @@
 {
-  "name": "@maple-plan/MaplePlan",
+  "name": "@maple-plan/web",
   "version": "0.0.1",
   "private": true,
   "dependencies": {

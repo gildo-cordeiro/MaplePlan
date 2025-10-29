@@ -1,10 +1,10 @@
 {
-  "name": "@maple-plan/MaplePlan-e2e",
+  "name": "@maple-plan/web-e2e",
   "version": "0.0.1",
   "private": true,
   "nx": {
     "implicitDependencies": [
-      "@maple-plan/MaplePlan"
+      "@maple-plan/web"
     ]
   }
 }
