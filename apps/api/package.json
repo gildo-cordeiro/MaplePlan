@@ -11,6 +11,8 @@
           "args": [
             "--node-env=production"
           ]
+          ,
+          "cwd": "apps/api"
         },
         "configurations": {
           "development": {
