@@ -7,4 +7,28 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }
+
+  ,"nx": {
+    "targets": {
+      "serve": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/web",
+          "command": "next dev"
+        },
+        "configurations": {
+          "production": {
+            "command": "next start"
+          }
+        }
+      },
+      "start": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/web",
+          "command": "next start"
+        }
+      }
+    }
+  }
 }
