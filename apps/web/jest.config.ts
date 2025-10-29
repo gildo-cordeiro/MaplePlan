@@ -14,6 +14,7 @@ const config: Config = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/apps/MaplePlan',
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/src/test/jest.handle-debug.ts'],
 };
 
 export default createJestConfig(config);
