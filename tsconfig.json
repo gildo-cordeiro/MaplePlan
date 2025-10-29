@@ -4,10 +4,16 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/MaplePlan-e2e"
+      "path": "./apps/web-e2e"
     },
     {
-      "path": "./apps/MaplePlan"
+      "path": "./apps/web"
+    },
+    {
+      "path": "./apps/api-e2e"
+    },
+    {
+      "path": "./apps/api"
     }
   ]
 }
