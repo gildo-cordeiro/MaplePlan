@@ -14,7 +14,9 @@ const config: Config = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/apps/MaplePlan',
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/src/test/jest.handle-debug.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/test/jest.handle-debug2.ts'],
+  // tracer runs early before environment setup to record resource creation
+  setupFiles: ['<rootDir>/src/test/jest.async-trace.ts'],
 };
 
 export default createJestConfig(config);

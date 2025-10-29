@@ -27,6 +27,61 @@ npx nx build MaplePlan
 
 To see all available targets to run for a project, run:
 
+````markdown
+# MaplePlan
+
+<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+
+This repository is a monorepo managed with Nx containing the MaplePlan backend and frontend applications plus their respective end-to-end test projects.
+
+Workspace summary
+
+- apps/api — NestJS backend (source: `apps/api`)  
+- apps/web — Next.js frontend (app router) (source: `apps/web`)  
+- apps/api-e2e — API e2e tests (Jest-based) (source: `apps/api-e2e`)  
+- apps/web-e2e — Web e2e tests (Cypress) (source: `apps/web-e2e`)
+
+Use the per-app README files for details: `apps/api/README.md`, `apps/web/README.md`.
+
+Node / environment
+
+- Node version recommended: see `.nvmrc` (Node 20+).  
+- Use `nvm use` (or your environment manager) before running workspace scripts.
+
+Common commands
+
+- Run the development frontend: `npx nx dev web`  
+- Run the backend dev server: `npx nx serve api`  
+- Run all unit tests: `npx nx run-many --target=test --all`  
+- Run all e2e: `npx nx run-many --target=e2e --all` (or run per-project via `npx nx run web-e2e:e2e`)
+
+If you want to inspect available project names and targets, run `npx nx show projects` and `npx nx show project <projectName>`.
+
+---
+
+[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/next?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+
+## Finish your CI setup
+
+[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/ExWiPqNlli)
+
+
+## Run tasks
+
+To run the dev server for your app, use:
+
+```sh
+npx nx dev MaplePlan
+```
+
+To create a production bundle:
+
+```sh
+npx nx build MaplePlan
+```
+
+To see all available targets to run for a project, run:
+
 ```sh
 npx nx show project MaplePlan
 ```
@@ -70,7 +125,7 @@ Nx Console is an editor extension that enriches your developer experience. It le
 
 Learn more:
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/next?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
+- [Learn more about this workspace setup](https://nx.dev/nx-api/next?utm_source=nx_project&amp;utm_medium=readme&utm_campaign=nx_projects)
 - [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 - [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 - [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
@@ -80,3 +135,5 @@ And join the Nx community:
 - [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
 - [Our Youtube channel](https://www.youtube.com/@nxdevtools)
 - [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+````
