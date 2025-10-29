@@ -38,8 +38,8 @@ Workspace summary
 
 - apps/api — NestJS backend (source: `apps/api`)  
 - apps/web — Next.js frontend (app router) (source: `apps/web`)  
-- apps/api-e2e — API e2e tests (Jest-based) (source: `apps/api-e2e`)  
-- apps/web-e2e — Web e2e tests (Cypress) (source: `apps/web-e2e`)
+-- apps/api-e2e — (removed)
+-- apps/web-e2e — (removed)
 
 Use the per-app README files for details: `apps/api/README.md`, `apps/web/README.md`.
 
@@ -53,7 +53,7 @@ Common commands
 - Run the development frontend: `npx nx dev web`  
 - Run the backend dev server: `npx nx serve api`  
 - Run all unit tests: `npx nx run-many --target=test --all`  
-- Run all e2e: `npx nx run-many --target=e2e --all` (or run per-project via `npx nx run web-e2e:e2e`)
+-- Run all e2e: (removed)
 
 If you want to inspect available project names and targets, run `npx nx show projects` and `npx nx show project <projectName>`.
 

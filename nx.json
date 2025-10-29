@@ -44,15 +44,9 @@
         "watchDepsTargetName": "watch-deps"
       }
     },
-    {
-      "plugin": "@nx/cypress/plugin",
-      "options": {
-        "targetName": "e2e",
-        "openTargetName": "open-cypress",
-        "componentTestingTargetName": "component-test",
-        "ciTargetName": "e2e-ci"
-      }
-    },
+      {
+        "plugin": "@nx/cypress/plugin"
+      },
     {
       "plugin": "@nx/eslint/plugin",
       "options": {
@@ -64,7 +58,7 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["api-e2e/**/*"]
+        "exclude": []
     },
     {
       "plugin": "@nx/webpack/plugin",

@@ -10,8 +10,7 @@ Quick commands
 - Run unit tests:
   - npx nx test api
 
-- Run API e2e (Jest-based):
-  - npx nx test api-e2e
+/* API e2e tests removed from this workspace. */
 
 - Build for production:
   - npx nx build api

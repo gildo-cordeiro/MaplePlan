@@ -30,7 +30,6 @@
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.0",
     "@next/eslint-plugin-next": "^15.2.4",
-    "@nx/cypress": "22.0.2",
     "@nx/eslint": "22.0.2",
     "@nx/eslint-plugin": "22.0.2",
     "@nx/jest": "22.0.2",
@@ -43,7 +42,7 @@
     "@nx/workspace": "22.0.2",
     "@swc-node/register": "~1.9.1",
     "@swc/cli": "~0.6.0",
-    "@swc/core": "~1.5.7",
+    "@swc/core": "^1.14.0",
     "@swc/helpers": "~0.5.11",
     "@swc/jest": "~0.2.38",
     "@testing-library/dom": "10.4.0",
@@ -54,7 +53,6 @@
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "10.4.13",
     "babel-jest": "^30.0.2",
-    "cypress": "^14.2.1",
     "eslint": "^9.8.0",
     "eslint-config-next": "^15.2.4",
     "eslint-config-prettier": "^10.0.0",
@@ -80,8 +78,5 @@
   },
   "workspaces": [
     "apps/*"
-  ],
-  "engines": {
-    "node": ">=20"
-  }
+  ]
 }

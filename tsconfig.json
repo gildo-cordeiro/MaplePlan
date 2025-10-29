@@ -3,15 +3,11 @@
   "compileOnSave": false,
   "files": [],
   "references": [
-    {
-      "path": "./apps/web-e2e"
-    },
+      
     {
       "path": "./apps/web"
     },
-    {
-      "path": "./apps/api-e2e"
-    },
+      
     {
       "path": "./apps/api"
     }
