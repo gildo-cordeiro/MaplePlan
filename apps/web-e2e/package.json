@@ -11,7 +11,7 @@
       "e2e": {
         "executor": "@nx/cypress:cypress",
         "options": {
-          "cypressConfig": "apps/web-e2e/cypress.config.ts",
+          "cypressConfig": "apps/web-e2e/cypress.config.cjs",
           "testingType": "e2e"
         },
         "configurations": {
