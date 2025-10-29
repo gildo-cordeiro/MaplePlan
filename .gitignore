@@ -48,3 +48,6 @@ Thumbs.db
 out
 
 test-output
+
+# Ignore generated api distribution artifacts
+apps/api/dist/
