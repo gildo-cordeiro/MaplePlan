@@ -13,12 +13,10 @@ Quick commands
 - Build for production:
   - npx nx build web
 
-- Run web e2e tests (Cypress):
-  - npx nx run web-e2e:e2e
-  - or: npx cypress run --config-file apps/web-e2e/cypress.config.cjs --spec "apps/web-e2e/src/e2e/**"
+/* Web e2e tests removed from this workspace. */
 
 Notes
 
 - Project is located at `apps/web`.
 - Node version: see `.nvmrc` in the repo root (use Node 20+ as recommended).
-- The e2e project lives in `apps/web-e2e` (Cypress). We intentionally keep a CommonJS Cypress config (`cypress.config.cjs`) for CI compatibility.
+/* E2E project removed. */
