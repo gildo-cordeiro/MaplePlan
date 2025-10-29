@@ -12,7 +12,10 @@
         "executor": "@nx/cypress:cypress",
         "options": {
           "cypressConfig": "apps/web-e2e/cypress.config.cjs",
-          "testingType": "e2e"
+          "testingType": "e2e",
+          "env": {
+            "TS_NODE_COMPILER_OPTIONS": "{\"moduleResolution\":\"node16\"}"
+          }
         },
         "configurations": {
           "ci": {
