@@ -2,10 +2,14 @@
   "name": "@maple-plan/api",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "postinstall": "npx prisma generate --schema=apps/api/prisma/schema.prisma"
+  },
   "nx": {
     "targets": {
       "build": {
         "executor": "nx:run-commands",
+        "dependsOn": ["prisma-generate"],
         "options": {
           "command": "webpack-cli build",
           "args": [
@@ -19,6 +23,13 @@
               "--node-env=development"
             ]
           }
+        }
+      },
+      "prisma-generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx prisma generate --schema=apps/api/prisma/schema.prisma",
+          "cwd": "./"
         }
       },
       "prune-lockfile": {
