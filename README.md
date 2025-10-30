@@ -22,16 +22,16 @@ npm install
 
 2. Execute os apps individualmente durante o desenvolvimento:
 
-- Frontend (Next.js):
+- Frontend (Next.js) — usando script cross-platform:
 
 ```powershell
-npx nx dev web
+npm run dev:web
 ```
 
-- Backend (NestJS):
+- Backend (NestJS) — usando script cross-platform:
 
 ```powershell
-npx nx serve api
+npm run dev:api
 ```
 
 3. Padrão de portas (padrão do projeto):
@@ -48,6 +48,18 @@ Verifique os targets do Nx se as portas forem diferentes.
 - Executar testes: `npx nx test <project>` ou `npx nx run-many --target=test --all`
 - Lint: `npx nx lint <project>`
 - Mostrar projetos e targets: `npx nx show projects` / `npx nx show project <projectName>`
+
+## Rodando with Docker Compose (local)
+
+Se o projeto fornece um `docker-compose.yml` para rodar dependências (por exemplo Postgres), use:
+
+```powershell
+docker compose up -d
+# parar e remover
+docker compose down
+```
+
+Certifique-se de que o Docker Desktop / Docker Engine está instalado e que o comando `docker compose` funciona no seu terminal.
 
 ## Estrutura resumida
 

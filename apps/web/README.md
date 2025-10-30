@@ -12,8 +12,8 @@ Aplicação frontend construída com Next.js (app router).
 # Instale dependências na raiz
 npm install
 
-# Inicie o frontend (Next.js)
-npx nx dev web
+# Inicie o frontend (script cross-platform)
+npm run dev:web
 ```
 
 O frontend normalmente fica disponível em `http://localhost:3000`.
