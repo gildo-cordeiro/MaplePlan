@@ -22,11 +22,19 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
    * await prismaService.enableShutdownHooks(app)
    */
   async enableShutdownHooks(app: INestApplication) {
-    type PrismaAny = { $on: (event: string, callback: (...args: unknown[]) => void) => void };
-    (this as unknown as PrismaAny).$on('beforeExit', async () => {
+    const shutdown = async () => {
       this.logger.log('Prisma beforeExit called - closing Nest application');
-      await app.close();
-    });
+      try {
+        await app.close();
+      } catch (err) {
+        this.logger.error(`Error closing Nest application: ${String(err)}`);
+      }
+    };
+
+    // Prisma 5+ uses different engines; listen to process events instead of Prisma `$on('beforeExit')`
+    process.once('beforeExit', shutdown);
+    process.once('SIGINT', shutdown);
+    process.once('SIGTERM', shutdown);
   }
 
   // Called when Nest destroys the module
