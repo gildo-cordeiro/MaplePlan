@@ -5,28 +5,33 @@
   "scripts": {
     "nx": "nx",
     "dev": "npx nx serve",
-    "dev:api": "cross-env PORT=3333 npx nx serve @maple-plan/api",
-    "dev:web": "cross-env PORT=3001 npx nx serve @maple-plan/web",
+    "dev:api": "npx nx serve @maple-plan/api",
+    "dev:web": "npx nx serve @maple-plan/web",
+    "build:api": "npx nx build @maple-plan/api --verbose",
+    "build:web": "npx nx build @maple-plan/web --verbose",
     "build": "npx nx build",
     "build:all": "npx nx build",
     "test": "npx nx test",
     "lint": "npx nx lint",
     "start": "npx nx serve --configuration=production",
-    "start:api-prod": "cross-env PORT=3333 npx nx serve @maple-plan/api --configuration=production",
-    "start:web-prod": "cross-env PORT=3000 npx nx serve @maple-plan/web --configuration=production",
-    "format": "prettier --write ."
+    "start:api-prod": "npx nx serve @maple-plan/api --configuration=production",
+    "start:web-prod": "npx nx serve @maple-plan/web --configuration=production",
+    "format": "prettier --write .",
+    "clean:tmp": "node ./scripts/clean-tmp.js"
   },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
+    "argon2": "^0.44.0",
     "axios": "^1.6.0",
     "next": "~15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.0"
+    "rxjs": "^7.8.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
@@ -84,6 +89,7 @@
     "webpack-cli": "^5.1.4"
   },
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "libs/*"
   ]
 }
