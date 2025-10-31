@@ -1,0 +1,6 @@
+{
+  "name": "@maple-plan/shared-types",
+  "version": "0.0.0",
+  "main": "dist/libs/shared-types/index.js",
+  "types": "dist/libs/shared-types/index.d.ts"
+}

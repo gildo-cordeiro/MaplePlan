@@ -4,6 +4,7 @@
 dist
 tmp
 out-tsc
+*.tsbuildinfo
 
 # dependencies
 node_modules
@@ -33,6 +34,9 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+
+# Ignore local environment files
+.env
 
 # System Files
 .DS_Store
