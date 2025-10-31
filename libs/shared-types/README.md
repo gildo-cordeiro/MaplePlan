@@ -1,52 +1,64 @@
 # @maple-plan/shared-types
 
-Library with shared types and Zod schemas used across backend (`apps/api`) and frontend (`apps/web`).
+Shared schemas and types used across the monorepo (backend `apps/api` and frontend `apps/web`).
 
-Goals
-- Keep request/response contracts (DTOs) in a single place.
-- Reuse runtime validation (Zod) and TypeScript types on both client and server.
-- Avoid leaking server-only implementations to the client (only schemas/types here).
+Purpose
+- Centralize request/response contracts (DTOs) and runtime validation so the frontend and backend share the same source of truth.
+- Export only pure schemas and types (no Node-only logic or secrets).
 
-How to import
+What this lib contains
+- Zod schemas (runtime validation and parsing)
+- Inferred TypeScript types (via `z.infer<>`)
+- Small pure helpers/mappers (if needed)
 
-From backend or frontend (after TypeScript path mapping):
+Quick import
 
 ```ts
 import { createUserSchema, type CreateUserDto } from '@maple-plan/shared-types';
 ```
 
-Validation (server)
+Usage examples
 
-In a NestJS controller you can use Zod directly (recommended when sharing schemas):
+Server (NestJS controller)
 
 ```ts
+import { Controller, Post, Body } from '@nestjs/common';
 import { createUserSchema } from '@maple-plan/shared-types';
-import { BadRequestException } from '@nestjs/common';
 
-const parsed = createUserSchema.safeParse(req.body);
+// validate manually (or use the global Zod interceptor provided in the repo)
+const parsed = createUserSchema.safeParse(body);
 if (!parsed.success) throw new BadRequestException(parsed.error);
-const dto = parsed.data; // typed as CreateUserDto
+const dto: CreateUserDto = parsed.data;
 ```
 
-Validation (client)
-
-You can perform client-side validation before sending the request:
+Client (before sending request)
 
 ```ts
 import { createUserSchema } from '@maple-plan/shared-types';
 
 const result = createUserSchema.safeParse(formValues);
 if (!result.success) {
-  // show validation errors
+  // show validation errors in the UI
 }
 ```
 
-Notes and best practices
-- Use `import type { ... }` in frontend code when possible to avoid importing runtime code.
-- Keep only schemas and types here. Any server-only logic (Prisma clients, secrets, adapters) must remain in `apps/api` or `libs/shared-server`.
-- If you need to share transform/mappers, keep them as pure functions and ensure they do not import Node-only APIs.
+Types vs classes
+- We recommend using Zod schemas + inferred types for shared DTOs because they work at runtime (validation) and compile-time (types) and run both in browser and Node.
+- If you need `class-validator`/`class-transformer` (Nest's default), keep those classes inside the backend and map between Zod types and classes at the controller boundary.
 
-Example exported items
+Build and development
+- Build this lib (generates `.d.ts` files) so other projects can consume it:
 
-- `createUserSchema` (Zod schema) — runtime validation and parsing
-- `CreateUserDto` (inferred type) — TypeScript type for request bodies
+```powershell
+npx nx run shared-types:build
+```
+
+Notes
+- Use `import type { ... }` on the frontend when only the type is needed to avoid pulling runtime code.
+- Keep this lib purely portable: avoid Node-only APIs, filesystem, DB clients, or environment secrets.
+
+Exports (examples)
+- `createUserSchema` — Zod schema for creating users
+- `CreateUserDto` — TypeScript type inferred from the schema
+
+If you'd like, I can also add a small README section that documents each exported symbol in more detail (schemas, helper functions, example shapes). Tell me what level of detail you prefer.
