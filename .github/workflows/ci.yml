@@ -1,16 +1,17 @@
 name: CI
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  pull_request:
 
 permissions:
   actions: read
   contents: read
 
 jobs:
-  deploy:
+  main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,6 +30,11 @@ jobs:
       - name: Run affected lint
         run: npx nx affected -t lint
 
+  deploy:
+    needs: main
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && success()
+    steps:
       - name: Deploy to Render
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
