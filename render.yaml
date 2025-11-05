@@ -1,9 +1,25 @@
 services:
   - type: web
-    name: mapleplan-api
-    env: docker
-    branch: main
+    name: maple-plan-api           # friendly name shown in Render dashboard
+    env: docker                    # we build from Dockerfile
+    branch: main                   # auto-deploy from main
     dockerfilePath: Dockerfile
     autoDeploy: true
     plan: free
-    description: "MaplePlan API deployed via Dockerfile. Set DATABASE_URL and other secrets in Render dashboard."
+    # Health check — point to a lightweight path your app serves (create /health if needed)
+    healthCheckPath: "/health"
+    # Env declarations (placeholders). Do not put secrets here; create them in Render UI (or use secrets syntax)
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "8080"
+      - key: DATABASE_URL         # DO NOT set value here in repo; set it as a secret in the Render service
+      - key: JWT_SECRET           # set via Render secret
+jobs:
+  - name: run-prisma-migrations
+    type: job
+    env: docker
+    dockerfilePath: Dockerfile
+    branch: main
+    startCommand: "npx prisma migrate deploy --schema=apps/api/prisma/schema.prisma"

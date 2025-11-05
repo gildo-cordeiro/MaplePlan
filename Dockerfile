@@ -10,6 +10,7 @@ RUN npm install -g npm@9 --silent
 # Install OS build dependencies needed for native modules (argon2, sharp, etc.)
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends python3 build-essential make g++ ca-certificates && \
+    apt-get update -y && apt-get install -y openssl && \
 	rm -rf /var/lib/apt/lists/*
 
 # Install dependencies (use package-lock for reproducible installs)
