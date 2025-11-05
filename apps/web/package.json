@@ -8,13 +8,16 @@
     "start": "next start",
     "vercel-build": "next build"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
+    "@maple-plan/source": "file:../..",
     "next": "~15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
-  }
-
-  ,"nx": {
+  },
+  "nx": {
     "targets": {
       "build": {
         "executor": "@nx/next:build",
