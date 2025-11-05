@@ -10,7 +10,7 @@ Este repositório usa workspaces (packages gerenciadas pela raiz). Use os README
 ## Requisitos
 
 - Node.js 20+ (recomendado). Verifique `.nvmrc` na raiz se usar nvm.
-- npm (ou pnpm/yarn) para instalar dependências.
+- npm para instalar dependências.
 
 ## Como começar (desenvolvimento)
 
