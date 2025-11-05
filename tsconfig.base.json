@@ -2,8 +2,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@maple-plan/shared-types": ["libs/shared-types/src/index.ts"],
-      "@maple-plan/shared-types/*": ["libs/shared-types/src/*"]
     },
     "composite": true,
     "declarationMap": true,

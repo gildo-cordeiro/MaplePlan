@@ -24,6 +24,7 @@ node_modules
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+MaplePlan.code-workspace
 
 # misc
 /.sass-cache
@@ -55,3 +56,8 @@ test-output
 
 # Ignore generated api distribution artifacts
 apps/api/dist/
+
+# Ignore compiled artifacts that may have been committed in libs/shared-types root
+libs/shared-types/*.js
+libs/shared-types/*.d.ts
+libs/shared-types/*.map

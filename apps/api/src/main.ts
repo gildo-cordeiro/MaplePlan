@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { PrismaService } from './app/prisma/prisma.service';
@@ -9,6 +10,6 @@ async function bootstrap() {
   await prismaService.enableShutdownHooks(app);
   const zodInterceptor = app.get(ZodValidationInterceptor);
   app.useGlobalInterceptors(zodInterceptor);
-  await app.listen(3333);
+  await app.listen(8080);
 }
 bootstrap();

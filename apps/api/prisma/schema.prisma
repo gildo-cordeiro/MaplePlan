@@ -19,9 +19,11 @@ model User {
   name         String
   email        String   @unique
   passwordHash String
+  isVerified   Boolean  @default(false)
   createdAt    DateTime @default(now())
   tasks        Task[]
   finances     Finance[]
+  verificationTokens VerificationToken[]
 }
 
 model Task {
@@ -44,4 +46,12 @@ model Finance {
   user        User     @relation(fields: [userId], references: [id])
   userId      String
   createdAt   DateTime @default(now())
+}
+
+model VerificationToken {
+  token     String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }

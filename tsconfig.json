@@ -10,8 +10,6 @@
     {
       "path": "./apps/api"
     },
-    {
-      "path": "./libs/shared-types"
-    }
+    
   ]
 }

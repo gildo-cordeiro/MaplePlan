@@ -1,8 +1,8 @@
 import { Injectable, ConflictException } from "@nestjs/common";
 import { UserRepository } from "./users.repository";
-import type { CreateUserDto, UserDto } from "@maple-plan/shared-types";
-import type { Prisma } from "@prisma/client";
-import * as argon2 from "argon2";
+import type { CreateUserDto } from "../dtos";
+import type { Prisma, User } from "@prisma/client";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -16,8 +16,8 @@ export class UserService {
         };
     }
 
-    async createUser(data: CreateUserDto): Promise<UserDto> {
-        const passwordHash = await argon2.hash(data.password);
+    async createUser(data: CreateUserDto): Promise<User> {
+        const passwordHash = await bcrypt.hash(data.password, 10);
 
         const payload = this.toPrismaCreate(data, passwordHash);
 
@@ -26,13 +26,7 @@ export class UserService {
             if (!user) {
                 throw new Error('User creation failed');
             }
-            const safeUser: UserDto = {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                createdAt: user.createdAt.toISOString()
-            };
-            return safeUser;
+            return user;
         } catch (err: unknown) {
             const code = (err as { code?: unknown })?.code;
             if (typeof code === 'string' && code === 'P2002') {
@@ -40,5 +34,21 @@ export class UserService {
             }
             throw err;
         }
+    }
+
+    async findOneByEmail(email: string): Promise<User> {
+        const user = await this.userRepository.findByEmail(email.toLowerCase().trim());
+         if (!user) {
+            throw new Error('Invalid email or password');
+        }
+        return user
+    }
+
+    async findById(id: string): Promise<User> {
+         const user = await this.userRepository.findById(id);
+         if (!user) {
+            throw new Error('Invalid email or password');
+        }
+        return user
     }
 }
