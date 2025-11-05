@@ -43,22 +43,20 @@ Verifique os targets do Nx se as portas forem diferentes.
 
 ## Comandos úteis
 
-- Ver grafo de dependências: `npx nx graph`
-- Construir projeto: `npx nx build <project>` (ex.: `npx nx build web`)
 - Executar testes: `npx nx test <project>` ou `npx nx run-many --target=test --all`
 - Lint: `npx nx lint <project>`
 - Mostrar projetos e targets: `npx nx show projects` / `npx nx show project <projectName>`
 
 ## Rodando with Docker Compose (local)
-
 Se o projeto fornece um `docker-compose.yml` para rodar dependências (por exemplo Postgres), use:
 
 ```powershell
 docker compose up -d
 # parar e remover
 docker compose down
+<!-- CI trigger: small edit to exercise GitHub Actions pipeline -->
+Last CI trigger: 2025-11-05T00:00:00Z
 ```
-
 Certifique-se de que o Docker Desktop / Docker Engine está instalado e que o comando `docker compose` funciona no seu terminal.
 
 ## Estrutura resumida
