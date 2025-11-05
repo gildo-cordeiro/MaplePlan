@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Deploy to Render (update service image via API or fallback to Deploy Hook)
         env:
           RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
@@ -24,30 +27,4 @@ jobs:
           IMAGE_TAG: ghcr.io/${{ github.repository_owner }}/mapleplan-api:${{ github.sha }}
         run: |
           set -euo pipefail
-          # If API key + service id are provided, attempt to update the service to point to the newly built image
-          if [ -n "${RENDER_API_KEY:-}" ] && [ -n "${RENDER_SERVICE_ID:-}" ]; then
-            echo "Updating Render service ${RENDER_SERVICE_ID} to use image ${IMAGE_TAG} via API"
-            resp=$(curl -sS -X PATCH "https://api.render.com/v1/services/${RENDER_SERVICE_ID}" \
-              -H "Authorization: Bearer ${RENDER_API_KEY}" \
-              -H "Content-Type: application/json" \
-              -d "{\"dockerImage\":{\"image\":\"${IMAGE_TAG}\"}}") || true
-            echo "Render API response:" && echo "$resp"
-            # If the response contains an id or success marker, assume it triggered a deploy
-            if echo "$resp" | grep -q 'id\|status\|dockerImage'; then
-              echo "Render service updated; waiting briefly for deploy to start"
-              sleep 3
-              exit 0
-            else
-              echo "Render API update did not return expected response, falling back to Deploy Hook (if present)" >&2
-            fi
-          fi
-
-          if [ -n "${RENDER_DEPLOY_HOOK:-}" ]; then
-            echo "Triggering Render deploy via Deploy Hook"
-            curl -sS -X POST "$RENDER_DEPLOY_HOOK" -o render-deploy-response.json -w "HTTP:%{http_code}\n"
-            echo "Deploy hook called. Response body:" && cat render-deploy-response.json
-            exit 0
-          fi
-
-          echo "No Render deploy method available. Set RENDER_API_KEY+RENDER_SERVICE_ID or RENDER_DEPLOY_HOOK secrets." >&2
-          exit 1
+          bash .github/scripts/deploy_to_render.sh

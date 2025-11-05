@@ -15,7 +15,6 @@ RUN if [ -d "node_modules/@prisma/client" ]; then echo "Prisma client present:" 
 
 FROM node:20-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV=production
 
 
 # Copy built artifact
@@ -24,11 +23,14 @@ COPY --from=builder /workspace/apps/api/dist ./apps/api/dist
 # Copy app package files so we can install production deps in the final image
 COPY --from=builder /workspace/apps/api/package.json ./apps/api/package.json
 
+# Copy root lockfile into the api folder so `npm ci` can run inside that subfolder
+COPY --from=builder /workspace/package-lock.json ./apps/api/package-lock.json
+
 # Copy generated Prisma client from builder to a temp location
 COPY --from=builder /workspace/node_modules/@prisma /prisma_gen/@prisma
 
 # Install production dependencies for the API only (keeps image smaller)
-RUN cd apps/api && npm ci --production
+RUN cd apps/api && npm ci
 
 # Copy generated Prisma client into the installed node_modules
 RUN mkdir -p apps/api/node_modules && cp -r /prisma_gen/@prisma apps/api/node_modules/@prisma || true
