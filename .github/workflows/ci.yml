@@ -64,28 +64,16 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && success()
     steps:
-      - name: Deploy to Render (Deploy Hook preferred)
+      - name: Deploy to Render (Deploy Hook)
         env:
           RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
         run: |
           set -euo pipefail
-          if [ -n "${RENDER_DEPLOY_HOOK:-}" ]; then
-            echo "Triggering Render deploy via Deploy Hook"
-            curl -sSf -X POST "$RENDER_DEPLOY_HOOK"
-            echo "Deploy hook triggered"
-            exit 0
+          if [ -z "${RENDER_DEPLOY_HOOK:-}" ]; then
+            echo "RENDER_DEPLOY_HOOK secret not set. Create a Deploy Hook in Render and add it as the secret 'RENDER_DEPLOY_HOOK' in GitHub." >&2
+            exit 1
           fi
-          if [ -n "${RENDER_API_KEY:-}" ] && [ -n "${RENDER_SERVICE_ID:-}" ]; then
-            echo "Triggering Render deploy via API (fallback)"
-            curl -sSf -X POST "https://api.render.com/v1/services/${RENDER_SERVICE_ID}/deploys" \
-              -H "Authorization: Bearer ${RENDER_API_KEY}" \
-              -H "Content-Type: application/json" \
-              -d '{"clearCache":false}' \
-              | tee render-deploy-response.json
-            echo "Deploy triggered via API"
-            exit 0
-          fi
-          echo "No Render deploy hook or API creds found. Set RENDER_DEPLOY_HOOK or RENDER_API_KEY+RENDER_SERVICE_ID secrets."
-          exit 1
+          echo "Triggering Render deploy via Deploy Hook"
+          curl -sS -X POST "$RENDER_DEPLOY_HOOK" -o render-deploy-response.json -w "HTTP:%{http_code}\n"
+          echo "Deploy hook called. Response body:" && cat render-deploy-response.json
+          echo "Done"
