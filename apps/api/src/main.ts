@@ -10,6 +10,7 @@ async function bootstrap() {
   await prismaService.enableShutdownHooks(app);
   const zodInterceptor = app.get(ZodValidationInterceptor);
   app.useGlobalInterceptors(zodInterceptor);
-  await app.listen(8080);
+  const port = process.env.PORT ? Number(process.env.PORT) : 8080;
+  await app.listen(port);
 }
 bootstrap();
