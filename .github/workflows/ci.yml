@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +31,7 @@ jobs:
         run: npx nx affected -t lint
 
   deploy:
+    needs: main
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && success()
     steps:
