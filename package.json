@@ -14,7 +14,7 @@
     "test": "npx nx test",
     "lint": "npx nx lint",
     "start": "npx nx serve --configuration=production",
-    "start:api-prod": "npx nx serve @maple-plan/api --configuration=production",
+    "start:api-prod": "node apps/api/dist/main.js",
     "start:web-prod": "npx nx serve @maple-plan/web --configuration=production",
     "format": "prettier --write .",
     "clean:tmp": "node ./scripts/clean-tmp.js"

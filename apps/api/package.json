@@ -2,9 +2,7 @@
   "name": "@maple-plan/api",
   "version": "0.0.1",
   "private": true,
-  "scripts": {
-    "postinstall": "npx prisma generate --schema=./prisma/schema.prisma"
-  },
+  "scripts": {},
   "nx": {
     "targets": {
       "build": {
