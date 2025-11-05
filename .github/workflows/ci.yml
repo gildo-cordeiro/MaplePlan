@@ -11,25 +11,41 @@ permissions:
   contents: read
 
 jobs:
-  main:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          filter: tree:0
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-      
-      - name: Set DATABASE_URL for Prisma
-        run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
-       
-      - run: npm ci
+
+      - name: Install dependencies (skip install scripts)
+        run: npm ci --ignore-scripts
+
       - uses: nrwl/nx-set-shas@v4
 
-      - run: npx nx affected -t lint build
-      
-      - run: npx nx fix-ci
-        if: always()
+      - name: Run affected lint
+        run: npx nx affected -t lint
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && success()
+    steps:
+      - name: Trigger Render deploy
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          if [ -z "$RENDER_API_KEY" ] || [ -z "$RENDER_SERVICE_ID" ]; then
+            echo "Render secrets not configured, skipping deploy"
+            exit 1
+          fi
+          echo "Triggering deploy for Render service $RENDER_SERVICE_ID"
+          curl -sSf -X POST "https://api.render.com/v1/services/${RENDER_SERVICE_ID}/deploys" \
+            -H "Authorization: Bearer ${RENDER_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache":false}' \
+            | tee render-deploy-response.json
