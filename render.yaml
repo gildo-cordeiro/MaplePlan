@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: mapleplan-api
+    env: docker
+    branch: main
+    dockerfilePath: Dockerfile
+    autoDeploy: true
+    plan: free
+    description: "MaplePlan API deployed via Dockerfile. Set DATABASE_URL and other secrets in Render dashboard."
