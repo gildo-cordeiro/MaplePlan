@@ -97,14 +97,4 @@ jobs:
           cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/mapleplan-api:cache
           cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/mapleplan-api:cache,mode=max
 
-      - name: Build and push Web image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile.apps.web
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/mapleplan-web:${{ github.sha }}
-            ghcr.io/${{ github.repository_owner }}/mapleplan-web:latest
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/mapleplan-web:cache
-          cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/mapleplan-web:cache,mode=max
+      # Skipping web image push: web is deployed by Vercel directly from the GitHub repo
