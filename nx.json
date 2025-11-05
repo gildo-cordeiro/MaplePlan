@@ -1,7 +1,10 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/cypress/**/*",
@@ -15,9 +18,11 @@
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/test-setup.[jt]s"
     ],
-    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
+    "sharedGlobals": [
+      "{workspaceRoot}/.github/workflows/ci.yml"
+    ]
   },
-  "nxCloudId": "69022a3758f3c97945839bca",
+  "nxCloudId": "690b237f42b4f21b5663b618",
   "plugins": [
     {
       "plugin": "@nx/js/typescript",
@@ -44,9 +49,9 @@
         "watchDepsTargetName": "watch-deps"
       }
     },
-      {
-        "plugin": "@nx/cypress/plugin"
-      },
+    {
+      "plugin": "@nx/cypress/plugin"
+    },
     {
       "plugin": "@nx/eslint/plugin",
       "options": {
@@ -58,7 +63,7 @@
       "options": {
         "targetName": "test"
       },
-        "exclude": []
+      "exclude": []
     },
     {
       "plugin": "@nx/webpack/plugin",
@@ -74,7 +79,9 @@
   ],
   "targetDefaults": {
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     }
   },
   "generators": {
